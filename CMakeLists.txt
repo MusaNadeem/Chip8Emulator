@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.10)
+project(Chip8Emulator)
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+include_directories(include)
+add_executable(Chip8Emulator src/main.cpp src/Chip8.cpp)
+target_link_libraries(Chip8Emulator sfml-graphics sfml-window sfml-system)
