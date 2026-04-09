@@ -4,9 +4,15 @@
 #include <cstdint>
 #include <string>
 
+
+
 class Chip8{
 
     public:
+    Chip8();
+    bool LoadRom(const std::string& filename);
+    void Cycle();
+    
     uint32_t display[64*32]{};
     uint8_t keypad[16]{};
     uint8_t soundTimer{};
@@ -15,7 +21,7 @@ class Chip8{
     private:
     uint8_t V[16]{};
     uint16_t stack[16]{};
-    uint8_t memory[4096];
+    uint8_t memory[4096]{};
     uint8_t sp{};
     uint16_t I{};
     uint16_t PC{};
