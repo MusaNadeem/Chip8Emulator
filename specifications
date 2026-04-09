@@ -1,0 +1,10 @@
+16 registers, 1 byte each
+PC 1 byte
+Index Register I 1 byte
+stack 16
+sp
+ram 4096 bits (4kb)
+graphics (64x32)
+
+
+Address=0x050+(n×5)

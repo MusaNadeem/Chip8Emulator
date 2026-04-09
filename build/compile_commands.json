@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/musanadeem/User Files/Personal Stuff/Projects/Chip8Emulator/build",
+  "command": "/usr/bin/c++  -I\"/home/musanadeem/User Files/Personal Stuff/Projects/Chip8Emulator/include\" -g -o CMakeFiles/Chip8Emulator.dir/src/main.cpp.o -c \"/home/musanadeem/User Files/Personal Stuff/Projects/Chip8Emulator/src/main.cpp\"",
+  "file": "/home/musanadeem/User Files/Personal Stuff/Projects/Chip8Emulator/src/main.cpp",
+  "output": "CMakeFiles/Chip8Emulator.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/musanadeem/User Files/Personal Stuff/Projects/Chip8Emulator/build",
+  "command": "/usr/bin/c++  -I\"/home/musanadeem/User Files/Personal Stuff/Projects/Chip8Emulator/include\" -g -o CMakeFiles/Chip8Emulator.dir/src/Chip8.cpp.o -c \"/home/musanadeem/User Files/Personal Stuff/Projects/Chip8Emulator/src/Chip8.cpp\"",
+  "file": "/home/musanadeem/User Files/Personal Stuff/Projects/Chip8Emulator/src/Chip8.cpp",
+  "output": "CMakeFiles/Chip8Emulator.dir/src/Chip8.cpp.o"
+}
+]
