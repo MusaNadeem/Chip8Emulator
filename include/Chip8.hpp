@@ -34,17 +34,23 @@ class Chip8{
         this->PC = 0x200;
 
         //Clearing Memory
-        for (int i = 0; i < 4095; i++)
+        for (int i = 0; i < 4096; i++)
         {
             this->memory[i] = 0;
             
         }
 
         //Clearing Registers
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 16; i++)
         {
             this->V[i] = 0;
         }
+
+        for (int i = 0; i < 80; i++)
+        {
+            this->memory[0x050 + i] = FONTSET[i];
+        }
+        
         
         
     };
