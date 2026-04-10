@@ -40,9 +40,24 @@ void Chip8::Cycle(){
 
     switch(nibble){
 
-        case 0x0:
+        case 0x0:{
 
+            uint8_t lastByte = (opcode & 0x00FF);
 
+            switch(lastByte){
+                //0nnn
+                case 0xE0:
+
+                    break;
+
+                case 0xEE:
+                    sp--;
+                    PC = stack[sp];
+                    break;
+            }
+        }
+
+            break;
         case 0x1:
         
             //1nnn: jump to location nnn
@@ -52,7 +67,7 @@ void Chip8::Cycle(){
 
         case 0x2:
             //2nnn: call subroutine at nnn
-            if(sp < 15){
+            if(sp <= 15){
 
                 stack[sp] = PC;
                 sp++;
@@ -99,7 +114,85 @@ void Chip8::Cycle(){
             V[(opcode & 0x0F00) >> 8] += opcode & 0x00FF;
             break;
 
-        case 0x8:
+        case 0x8:{
+
+            uint8_t x = (opcode & 0x0F00) >> 8;
+            uint8_t y = (opcode & 0x00F0) >> 4;
+            
+            switch(opcode & 0x000F){
+                
+                case 0x0:
+                    V[x] = V[y];
+                    break;
+
+                case 0x1:
+                    V[x] = V[x] | V[y];
+                    break;
+
+                case 0x2:
+                    V[x] = V[x] & V[y];
+                    break;
+
+                case 0x3:
+                    V[x] = V[x] ^ V[y];
+                    break;
+
+                case 0x4:
+                    if ((V[x] + V[y]) > 0xFF)
+                    {
+                        V[x] = V[x] + V[y];
+                        V[15] = 0x1;
+                    }
+                    else{
+                        V[x] = V[x] + V[y];
+                        V[15] = 0x0;
+                    }
+                    break;
+
+                case 0x5:
+                    if (V[x] >= V[y])
+                    {
+                        V[x] = V[x] - V[y];
+                        V[15] = 0x1;
+                    }
+                    else{
+                        V[x] = V[x] - V[y];
+                        V[15] = 0x0;
+                    }
+                    break;
+
+                case 0x6:{
+
+                    uint8_t lsb = V[x] & 0x1;
+                    V[x] = V[x] >> 1;
+                    
+                    V[15] = lsb;
+                    break;
+                }
+
+                case 0x7:
+                    if (V[y] >= V[x])
+                    {
+                        V[x] = V[y] - V[x];
+                        V[15] = 1;
+                    }
+                    else{
+                        V[x] = V[y] - V[x];
+                        V[15] = 0;
+                    }
+                    
+                    break;
+
+                case 0xE:{
+                    uint8_t msb = (V[x] & 0x80) >> 7;
+                    V[x] = V[x] << 1;
+                    V[15] = msb;
+                    break;               
+                }
+                }
+                
+                break;
+            }
 
         case 0x9:
             //9xy0: Skip next instruction if Vx != Vy
@@ -126,10 +219,13 @@ void Chip8::Cycle(){
             break;
 
         case 0xD:
+            break;
 
         case 0xE:
+            break;
 
         case 0xF:
+            break;
 
     }
 
