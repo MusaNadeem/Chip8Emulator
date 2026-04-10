@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdint>
 #include <ctime>
+#include <cstring>
 #include <cstdlib>
 #include "Chip8.hpp"
 
@@ -47,7 +48,7 @@ void Chip8::Cycle(){
             switch(lastByte){
                 //0nnn
                 case 0xE0:
-
+                    std::memset(display, 0, sizeof(display));
                     break;
 
                 case 0xEE:
@@ -221,11 +222,98 @@ void Chip8::Cycle(){
         case 0xD:
             break;
 
-        case 0xE:
-            break;
+        case 0xE:{
+            uint8_t E_last2 = opcode & 0x00FF;
+            uint8_t E_x = (opcode & 0x0F00) >> 8;
+            
+            switch(E_last2){
+                case 0x9E:
+                    if(keypad[V[E_x]]){
+                        PC = PC + 2;
+                    }
+                    break;
+                case 0xA1:
+                    if(!keypad[V[E_x]]){
+                        PC = PC + 2;
+                    }
+                    break;
 
-        case 0xF:
+            }
+            
+            
             break;
+        }
+
+        case 0xF:{
+            uint8_t F_last2 = opcode & 0x00FF;
+            uint8_t F_x = (opcode & 0x0F00) >> 8;
+            switch (F_last2)
+            {
+                case 0x07:
+                    V[F_x] = delayTimer;
+
+                    break;
+
+                case 0x0A:{
+                    bool keyPressed = false;
+                    for (int i = 0; i < 16; i++)
+                    {
+                        if (keypad[i])
+                        {
+                            keyPressed = true;
+                            V[F_x] = i;
+                        }
+                    }
+                    if (!keyPressed)
+                    {
+                        PC = PC - 2;
+                    }
+                    break;
+                }
+                
+                
+                case 0x15:
+                
+                    delayTimer = V[F_x];
+                    break;
+
+                case 0x18:
+                    soundTimer = V[F_x];
+
+                    break;
+                case 0x1E:
+                    I = I + V[F_x];
+                    break;
+                case 0x29:
+                    I = 0x050 + (V[F_x] * 5);
+                    break;
+                case 0x33:{
+                    uint8_t temp = V[F_x];
+                    memory[I] = temp / 100;
+                    temp = temp % 100;
+                    memory[I+1] = temp / 10;
+                    temp = temp % 10;
+                    memory[I+2] = temp;
+
+                     break;
+                }
+                case 0x55:
+                    for (int i = 0; i <= F_x; i++)
+                    {
+                        memory[I + i] = V[i]; 
+                    }
+                    
+                    break;
+                case 0x65:
+                    for (int i = 0; i <= F_x; i++)
+                    {
+                        V[i] = memory[I + i]; 
+                    }
+                    break;
+                
+            }
+            break;
+        }
 
     }
 
