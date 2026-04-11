@@ -61,6 +61,9 @@ class Chip8{
     // Fetch-Decode-Execute Cycle
     void Cycle();
 
+    // Decrement Timers
+    void TickTimers();
+
 
     uint32_t display[64*32]{}; // 64 x 32 pixel display
     uint8_t keypad[16]{}; // Keypad mapped to [0 to F]

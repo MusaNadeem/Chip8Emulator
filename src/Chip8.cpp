@@ -355,3 +355,15 @@ void Chip8::Cycle(){
 
 
 }
+
+
+void Chip8::TickTimers(){
+    if (soundTimer > 0)
+    {
+        soundTimer--;
+    }
+    if (delayTimer > 0)
+    {
+        delayTimer--;
+    }
+}
