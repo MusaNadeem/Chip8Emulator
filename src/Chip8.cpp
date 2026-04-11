@@ -6,6 +6,52 @@
 #include <cstdlib>
 #include "Chip8.hpp"
 
+
+    Chip8::Chip8(){
+        //standard PC Start Address for CHIP8
+        this->PC = 0x200;
+        this->sp = 0;
+        this->I=0;
+        this->opcode = 0;
+        this->delayTimer=0;
+        this->soundTimer=0;
+
+        //Clearing Memory
+        for (int i = 0; i < 4096; i++)
+        {
+           this-> memory[i] = 0;
+            
+        }
+
+        //Clearing Registers
+        for (int i = 0; i < 16; i++)
+        {
+           this-> V[i] = 0;
+        }
+
+        for (int i = 0; i < 80; i++)
+        {
+           this-> memory[0x050 + i] = FONTSET[i];
+        }
+
+        for (int i = 0; i < 16; i++)
+        {
+           this-> stack[i] = 0;
+        }
+
+        for (int i = 0; i <(64*32); i++)
+        {
+            display[i] = 0;
+        }
+        for (int i = 0; i < 16; i++)
+        {
+            keypad[i] = 0;
+        }
+        
+        
+        
+    };
+
 bool Chip8::LoadRom(const std::string& filename){
     
     srand(time(NULL));
@@ -52,8 +98,12 @@ void Chip8::Cycle(){
                     break;
 
                 case 0xEE:
-                    sp--;
-                    PC = stack[sp];
+                    if (sp>0)
+                    {
+                        sp--;
+                        PC = stack[sp];
+                    }
+                    
                     break;
             }
         }
@@ -264,12 +314,14 @@ void Chip8::Cycle(){
             
             switch(E_last2){
                 case 0x9E:
-                    if(keypad[V[E_x]]){
+                    if((V[E_x] <= 0xF) && (keypad[V[E_x]])){
                         PC = PC + 2;
                     }
+                    
                     break;
                 case 0xA1:
-                    if(!keypad[V[E_x]]){
+
+                    if((V[E_x] <= 0xF) && !keypad[V[E_x]]){
                         PC = PC + 2;
                     }
                     break;
@@ -298,6 +350,7 @@ void Chip8::Cycle(){
                         {
                             keyPressed = true;
                             V[F_x] = i;
+                            break;
                         }
                     }
                     if (!keyPressed)

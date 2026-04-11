@@ -29,31 +29,8 @@ class Chip8{
 
 
     public:
-    Chip8(){
-        //standard PC Start Address for CHIP8
-        this->PC = 0x200;
-
-        //Clearing Memory
-        for (int i = 0; i < 4096; i++)
-        {
-            this->memory[i] = 0;
-            
-        }
-
-        //Clearing Registers
-        for (int i = 0; i < 16; i++)
-        {
-            this->V[i] = 0;
-        }
-
-        for (int i = 0; i < 80; i++)
-        {
-            this->memory[0x050 + i] = FONTSET[i];
-        }
-        
-        
-        
-    };
+    Chip8();
+    
 
     // Loading the game
     bool LoadRom(const std::string& filename);

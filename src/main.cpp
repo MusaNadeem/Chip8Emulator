@@ -14,10 +14,12 @@ int main(int argc, char* argv[]){
     }
 
     std::string romPath = argv[1];
+    Chip8 chip8;
+    chip8.LoadRom(romPath);
     
 
     sf::RenderWindow window(sf::VideoMode({960,480}), "Chip8 Emulator");
-
+    window.setFramerateLimit(60);
     while (window.isOpen())
     {
         sf::Event event;
@@ -27,12 +29,100 @@ int main(int argc, char* argv[]){
             {
                 window.close();
             }
+
             
+        }
+        for (int i = 0; i < 16; i++)
+        {
+            chip8.keypad[i] =0;
+        }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num1))
+        {
+            chip8.keypad[1] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num2))
+        {
+            chip8.keypad[2] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num3))
+        {
+            chip8.keypad[3] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num4))
+        {
+            chip8.keypad[0xC] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q))
+        {
+            chip8.keypad[4] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+        {
+            chip8.keypad[5] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E))
+        {
+            chip8.keypad[6] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R))
+        {
+            chip8.keypad[0xD] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+        {
+            chip8.keypad[7] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+        {
+            chip8.keypad[8] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+        {
+            chip8.keypad[9] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F))
+        {
+            chip8.keypad[0xE] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Z))
+        {
+            chip8.keypad[0xA] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::X))
+        {
+            chip8.keypad[0] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::C))
+        {
+            chip8.keypad[0xB] = 1;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::V))
+        {
+            chip8.keypad[0xF] = 1;
         }
         window.clear(sf::Color::Black);
 
-        window.display();
+        for (int i = 0; i < 12; i++)
+        {
+            chip8.Cycle();
+        }
         
+        for (int i = 0; i < (64*32); i++)
+        
+        {
+            if (chip8.display[i] == 1)
+            {
+                sf::RectangleShape pixel(sf::Vector2f(15,15 ));
+                pixel.setPosition(15*(i % 64),15*(i/64));
+                window.draw(pixel);
+                
+            }
+            
+        }
+
+        window.display();
+        chip8.TickTimers();
     }
     
     
