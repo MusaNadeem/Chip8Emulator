@@ -219,8 +219,44 @@ void Chip8::Cycle(){
             V[(opcode & 0x0F00) >> 8] = (std::rand() % 256) & (opcode & 0x00FF); 
             break;
 
-        case 0xD:
+        case 0xD:{
+            uint8_t D_x = (opcode & 0x0F00) >> 8;
+            uint8_t D_y = (opcode & 0x00F0) >> 4;
+            uint8_t D_n = (opcode & 0x000F);
+
+            uint8_t start_x = V[D_x];
+            uint8_t start_y = V[D_y];
+            V[15] = 0;
+
+            for (int i = 0; i < D_n; i++)
+            {
+                uint8_t current_byte = memory[i+I];
+                for (int j = 0; j < 8; j++)
+                {
+                    uint8_t current_bit = (current_byte & (0x80>> j)) >> (7-j);
+
+                    if (current_bit == 1)
+                    {
+                        uint8_t x_final = (start_x + j) % 64;
+                        uint8_t y_final = (start_y + i) % 32;
+                        int index = (y_final * 64) + x_final;
+                        
+                        if(display[index] == 1){
+                            V[15] = 0x1;
+                        }
+    
+                        display[index] ^= current_bit;
+                    }
+                }
+               
+                
+            }
+            
+
             break;
+
+        }
+            
 
         case 0xE:{
             uint8_t E_last2 = opcode & 0x00FF;
@@ -319,5 +355,3 @@ void Chip8::Cycle(){
 
 
 }
-
-
