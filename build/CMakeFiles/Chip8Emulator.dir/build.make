@@ -114,6 +114,7 @@ Chip8Emulator: CMakeFiles/Chip8Emulator.dir/build.make
 Chip8Emulator: CMakeFiles/Chip8Emulator.dir/compiler_depend.ts
 Chip8Emulator: /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.2
 Chip8Emulator: /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.2
+Chip8Emulator: /usr/lib/x86_64-linux-gnu/libsfml-audio.so.2.6.2
 Chip8Emulator: /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.2
 Chip8Emulator: CMakeFiles/Chip8Emulator.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/home/musanadeem/User Files/Personal Stuff/Projects/Chip8Emulator/build/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Chip8Emulator"

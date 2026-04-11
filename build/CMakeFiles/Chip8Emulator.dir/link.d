@@ -6,6 +6,7 @@ Chip8Emulator: \
   CMakeFiles/Chip8Emulator.dir/src/Chip8.cpp.o \
   /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.2 \
   /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.2 \
+  /usr/lib/x86_64-linux-gnu/libsfml-audio.so.2.6.2 \
   /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.2 \
   /usr/lib/gcc/x86_64-linux-gnu/14/libstdc++.so \
   /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libm.so \
@@ -40,6 +41,12 @@ Chip8Emulator: \
   /lib/x86_64-linux-gnu/libXrandr.so.2 \
   /lib/x86_64-linux-gnu/libXcursor.so.1 \
   /lib/x86_64-linux-gnu/libudev.so.1 \
+  /lib/x86_64-linux-gnu/libopenal.so.1 \
+  /lib/x86_64-linux-gnu/libvorbisenc.so.2 \
+  /lib/x86_64-linux-gnu/libvorbisfile.so.3 \
+  /lib/x86_64-linux-gnu/libvorbis.so.0 \
+  /lib/x86_64-linux-gnu/libogg.so.0 \
+  /lib/x86_64-linux-gnu/libFLAC.so.14 \
   /lib64/ld-linux-x86-64.so.2 \
   /lib/x86_64-linux-gnu/libz.so.1 \
   /lib/x86_64-linux-gnu/libbz2.so.1.0 \
@@ -67,6 +74,8 @@ CMakeFiles/Chip8Emulator.dir/src/Chip8.cpp.o:
 /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.6.2:
 
 /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.6.2:
+
+/usr/lib/x86_64-linux-gnu/libsfml-audio.so.2.6.2:
 
 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.6.2:
 
@@ -135,6 +144,18 @@ CMakeFiles/Chip8Emulator.dir/src/Chip8.cpp.o:
 /lib/x86_64-linux-gnu/libXcursor.so.1:
 
 /lib/x86_64-linux-gnu/libudev.so.1:
+
+/lib/x86_64-linux-gnu/libopenal.so.1:
+
+/lib/x86_64-linux-gnu/libvorbisenc.so.2:
+
+/lib/x86_64-linux-gnu/libvorbisfile.so.3:
+
+/lib/x86_64-linux-gnu/libvorbis.so.0:
+
+/lib/x86_64-linux-gnu/libogg.so.0:
+
+/lib/x86_64-linux-gnu/libFLAC.so.14:
 
 /lib64/ld-linux-x86-64.so.2:
 

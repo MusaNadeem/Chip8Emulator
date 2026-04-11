@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <string>
 
-
+// Fontset for interpreter
 const unsigned int FONTSET_SIZE = 80;
 const uint8_t FONTSET[80] = {
 0xF0, 0x90, 0x90, 0x90, 0xF0, // 0

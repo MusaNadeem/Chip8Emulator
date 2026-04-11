@@ -1,23 +1,30 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
 #include "Chip8.hpp"
 #include <string>
 
 
-
+// implements the sfml window and manages timers and cpu frequency
 int main(int argc, char* argv[]){
-
+    // ensures rom argument is given 
     if (argc <2)
     {
         return -1;
     }
 
+    // stores ROM Path
     std::string romPath = argv[1];
     Chip8 chip8;
     chip8.LoadRom(romPath);
     
-
+    // sound creation
+    sf::Music beep;
+        if (!beep.openFromFile("include/beep.wav"))
+        return EXIT_FAILURE;
+    
+    // window creation
     sf::RenderWindow window(sf::VideoMode({960,480}), "Chip8 Emulator");
     window.setFramerateLimit(60);
     while (window.isOpen())
@@ -36,7 +43,7 @@ int main(int argc, char* argv[]){
         {
             chip8.keypad[i] =0;
         }
-
+        // input detection
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Num1))
         {
             chip8.keypad[1] = 1;
@@ -101,7 +108,13 @@ int main(int argc, char* argv[]){
         {
             chip8.keypad[0xF] = 1;
         }
+
         window.clear(sf::Color::Black);
+        if (chip8.soundTimer > 0)
+        {
+            beep.play();
+        }
+        
 
         for (int i = 0; i < 12; i++)
         {
@@ -115,18 +128,12 @@ int main(int argc, char* argv[]){
             {
                 sf::RectangleShape pixel(sf::Vector2f(15,15 ));
                 pixel.setPosition(15*(i % 64),15*(i/64));
-                window.draw(pixel);
-                
-            }
-            
+                window.draw(pixel);   
+            }  
         }
-
         window.display();
         chip8.TickTimers();
     }
-    
-    
-
 
     return 0;
 }
